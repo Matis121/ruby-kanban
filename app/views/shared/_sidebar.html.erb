@@ -1,0 +1,10 @@
+<div class="bg-neutral-700 text-white py-4 px-8 min-w-[250px]">
+  <p>Dostępne tablice</p>
+  <% if Board.any? %>
+    <% Board.all.each do |board| %>
+      <p><%= link_to board.title, board %></p>
+    <% end %>
+  <% else%>
+    <p>Stwórz pierwszą tablice</p>
+  <% end %>
+</div>

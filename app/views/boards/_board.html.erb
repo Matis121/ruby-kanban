@@ -1,0 +1,10 @@
+<div id="<%= dom_id board %>" class="flex items-center justify-between gap-4 border border-neutral-400 shadow-md rounded-md p-4">
+  <div class="flex gap-4">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= board.title %>
+  </div>
+  <div class="flex gap-4">
+    <%= link_to "Edit", edit_board_path(board), class: "btn" %>
+    <%= button_to "Destroy", board, method: :delete, class: "btn btn-error", data: { turbo_confirm: "Are you sure?" } %>
+  </div>
+</div>

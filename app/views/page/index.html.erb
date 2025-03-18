@@ -1,0 +1,10 @@
+<div>
+  <h1 class="font-bold text-4xl">Page#index</h1>
+  <p>Find me in app/views/page/index.html.erb</p>
+
+
+  <div class="my-8 flex gap-6">
+    <%= link_to "Login", new_user_session_path, class: "p-4 bg-red-500 text-white rounded" %>
+    <%= link_to "Register", new_user_registration_path, class: "p-4 bg-green-500 text-white rounded ml-2" %>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "p-4 bg-purple-500 text-white rounded ml-2" %>
+   </div>
