@@ -20,8 +20,10 @@
   <body>
     <%= render "shared/navbar" %>
     <main class="flex w-full pt-14 h-screen">
-      <%= render "shared/sidebar" %>
-      <div class="w-full p-2 overflow-scroll"><%= yield %></div>
+      <% if current_user %>
+        <%= render "shared/sidebar" %>
+      <% end %>
+      <div class="w-full overflow-auto pt-8 px-4"><%= yield %></div>
     </main>
   </body>
 </html>
