@@ -1,17 +1,22 @@
 <div class="bg-neutral-800 text-white py-8 px-4 w-[250px] border-r border-r-neutral-500 shadow-md flex flex-col gap-4">
   <div class="flex flex-col gap-3">
-    <% if Board.any? %>
+    <% if current_user.boards.any? %>
       <div class="flex justify-between items-center">
         <span class="font-semibold text-neutral-300 text-sm">Dostępne tablice</span>
         <%= link_to "+", new_board_path, class: "text-lg text-netural-300 px-1.5 hover:bg-neutral-500 rounded-md transition-all" %>
       </div>
-      <% Board.all.each do |board| %>
+      <% current_user.boards.each do |board| %>
         <%= link_to board, class: "flex gap-1 items-center py-2 px-2 bg-neutral-700 rounded-md text-neutral-200 hover:bg-neutral-500 shadow-md transition-all" do %>
           <span>📋</span><span><%= board.title %></span>
         <% end %>
       <% end %>
     <% else%>
-      <span>Stwórz pierwszą tablice</span>
+      <span class="font-semibold text-neutral-300 text-sm">Dostępne tablice</span>
+      <div class="flex flex-col items-center justify-center gap-8 bg-neutral-600 p-4 rounded">
+        <span class="text-sm">Brak tablic</span>
+        <%= image_tag "no-boards.svg", alt: "boards empty state", class: "w-18 opacity-80"  %>
+        <%= link_to "Stwórz tablice", new_board_path, class: "btn btn-primary" %>
+      </div>
     <% end %>
   </div>
 </div>

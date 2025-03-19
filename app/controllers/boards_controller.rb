@@ -1,9 +1,11 @@
 class BoardsController < ApplicationController
-  before_action :set_board, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_board, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_board_access, only: [ :show, :edit, :update, :destroy ]
 
   # GET /boards or /boards.json
   def index
-    @boards = Board.all
+    @boards = current_user.boards
   end
 
   # GET /boards/1 or /boards/1.json
@@ -66,5 +68,12 @@ class BoardsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def board_params
       params.expect(board: [ :title, :user_id ])
+    end
+
+    def authorize_board_access
+      # Prevents users from accessing boards they don't own
+      unless @board.user == current_user
+        redirect_to boards_path, alert: "You are not allowed to access this board!"
+      end
     end
 end
