@@ -1,0 +1,28 @@
+<div class="rounded w-[650px] h-[600px] border border-neutral-500 flex flex-col items-center shadow-md bg-neutral-800 p-4">
+  <%= form_with(model: @card, class: "contents") do |form| %>
+    <% if card.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+        <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
+        <ul class="list-disc ml-6">
+          <% card.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="flex flex-col gap-8 w-full">
+      <div class="flex flex-col w-full gap-2">
+        <%= form.label :title %>
+        <%= form.text_field :title, class: ["input w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:title].none?, "border-red-400 focus:outline-red-600": card.errors[:title].any?}] %>
+      </div>
+      <div class="flex flex-col w-full gap-2">
+        <%= form.label :description %>
+        <%= form.text_field :description, class: ["input w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:description].none?, "border-red-400 focus:outline-red-600": card.errors[:description].any?}] %>
+      </div>
+      <div class="inline w-full">
+        <%= form.submit "Zapisz", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+  <%= button_to "Usuń", card, method: :delete, class: "btn btn-error" %>
+</div>

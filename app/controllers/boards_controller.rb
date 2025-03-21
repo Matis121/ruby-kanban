@@ -60,18 +60,15 @@ class BoardsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_board
       @board = Board.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def board_params
       params.expect(board: [ :title, :user_id ])
     end
 
     def authorize_board_access
-      # Prevents users from accessing boards they don't own
       unless @board.user == current_user
         redirect_to boards_path, alert: "You are not allowed to access this board!"
       end

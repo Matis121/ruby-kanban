@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   authenticate :user do
     resources :boards do
-      resources :lists, only: [ :create, :update, :destroy ]
+      resources :lists, only: [ :create, :update, :destroy ] do
+        resources :cards, only: [ :create, :edit, :update ]
+      end
     end
     resources :cards
   end
