@@ -12,10 +12,6 @@ class BoardsController < ApplicationController
   def show
   end
 
-  # GET /boards/new
-  def new
-    @board = Board.new
-  end
 
   # GET /boards/1/edit
   def edit

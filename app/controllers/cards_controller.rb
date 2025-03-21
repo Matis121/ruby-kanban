@@ -1,59 +1,56 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_board, only: [ :create ]
-  before_action :set_list, only: [ :create ]
-  before_action :set_card, only: [ :update ]
+  before_action :set_board
+  before_action :set_list
+  before_action :set_card, only: [ :edit, :update, :destroy ]
 
   def create
     @card = @list.cards.build(card_params)
 
     if @card.save
-      redirect_to @board, notice: "Karta została dodana!"
+      redirect_to board_path(@board), notice: "Karta została dodana!"
     else
-      redirect_to @board, alert: "Nie udało się dodać karty."
+      redirect_to board_path(@board), alert: "Nie udało się dodać karty."
     end
   end
 
-
   def edit
-    @card = Card.find(params[:id])
   end
 
-
   def update
-    respond_to do |format|
-      if @card.update(card_params)
-        format.html { redirect_to @card, notice: "Board was successfully updated." }
-        format.json { render :show, status: :ok, location: @card }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @card.errors, status: :unprocessable_entity }
-      end
+    if @card.update(card_params)
+      redirect_to board_path(@board), notice: "Karta została zaktualizowana!"
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @card = Card.find(params[:id]).destroy!
-
-    respond_to do |format|
-      format.html { redirect_to boards_path, status: :see_other, notice: "Card was successfully destroyed." }
-      format.json { head :no_content }
+    if @card.destroy
+      redirect_to board_path(@board), status: :see_other, notice: "Karta została usunięta!"
+    else
+      redirect_to board_path(@board), alert: "Nie udało się usunąć karty."
     end
   end
-
 
   private
 
   def set_board
     @board = Board.find(params[:board_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to boards_path, alert: "Board not found."
   end
 
   def set_list
     @list = @board.lists.find(params[:list_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to board_path(@board), alert: "List not found."
   end
 
   def set_card
-    @card = Card.find(params[:id])
+    @card = @list.cards.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to board_list_path(@board, @list), alert: "Card not found."
   end
 
   def card_params

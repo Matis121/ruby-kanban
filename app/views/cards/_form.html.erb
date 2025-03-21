@@ -1,5 +1,5 @@
 <div class="rounded w-[650px] h-[600px] border border-neutral-500 flex flex-col items-center shadow-md bg-neutral-800 p-4">
-  <%= form_with(model: @card, class: "contents") do |form| %>
+  <%= form_with(model: [board, list, card], class: "contents") do |form| %>
     <% if card.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
         <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
@@ -24,5 +24,5 @@
       </div>
     </div>
   <% end %>
-  <%= button_to "Usuń", card, method: :delete, class: "btn btn-error" %>
+  <%= button_to "Usuń", board_list_card_path(board, list, card), method: :delete, class: "btn btn-error" %>
 </div>

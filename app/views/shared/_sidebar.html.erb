@@ -3,19 +3,56 @@
     <% if current_user.boards.any? %>
       <div class="flex justify-between items-center">
         <span class="font-semibold text-neutral-300 text-sm">Dostępne tablice</span>
-        <%= link_to "+", new_board_path, class: "text-lg text-netural-300 px-1.5 hover:bg-neutral-500 rounded-md transition-all" %>
+        <button class="text-lg text-netural-300 px-1.5 hover:bg-neutral-500 rounded-md transition-all" onclick="my_modal_5.showModal()"><%= lucide_icon("plus", class:"w-4")%></button>
+        <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+          <div class="modal-box">
+            <% content_for :title, "New board" %>
+            <div class="md:w-2/3 w-full flex flex-col gap-4">
+              <h1 class="font-bold text-4xl">Nowa tablica</h1>
+              <%= render "boards/form", board: Board.new %>
+            </div>
+            <div class="modal-action absolute -top-3 right-3">
+              <form method="dialog">
+                <button class="p-2 hover:cursor-pointer"><%= lucide_icon("x", class:"w-4")%></button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
       <% current_user.boards.each do |board| %>
-        <%= link_to board, class: "flex gap-1 items-center py-2 px-2 bg-neutral-700 rounded-md text-neutral-200 hover:bg-neutral-500 shadow-md transition-all" do %>
-          <span>📋</span><span><%= board.title %></span>
-        <% end %>
+        <div class="relative group">
+          <%= link_to board, class: "flex gap-1 items-center py-2 px-2 bg-neutral-700 rounded-md text-neutral-200 hover:bg-neutral-500 shadow-md transition-all" do %>
+            <span>📋</span><span><%= board.title %></span>
+          <% end %>
+          <div class="absolute top-1 right-1 transale dropdown dropdown-start">
+            <button class="group-hover:flex hidden active:flex focus:flex items-center justify-center ml-auto rounded-full p-1 bg-neutral-600 hover:bg-neutral-500 transition-all">
+              <%= lucide_icon("ellipsis-vertical", class: "w-4") %>
+            </button>
+            <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm">
+              <li><%= button_to "Usuń tablice", board, method: :delete %></li>
+            </ul>
+          </div>
+        </div>
       <% end %>
     <% else%>
       <span class="font-semibold text-neutral-300 text-sm">Dostępne tablice</span>
-      <div class="flex flex-col items-center justify-center gap-8 bg-neutral-600 p-4 rounded">
-        <span class="text-sm">Brak tablic</span>
+      <div class="flex flex-col items-center justify-center gap-4 bg-neutral-600 p-4 rounded">
+        <span class="text-sm text-neutral-300">Brak tablic</span>
         <%= image_tag "no-boards.svg", alt: "boards empty state", class: "w-18 opacity-80"  %>
-        <%= link_to "Stwórz tablice", new_board_path, class: "btn btn-primary" %>
+        <div>
+          <label for="my_modal_7" class="btn btn-primary">Stwórz tablicę</label>
+          <!-- Put this part before </body> tag -->
+          <input type="checkbox" id="my_modal_7" class="modal-toggle" />
+          <div class="modal" role="dialog">
+            <div class="modal-box">
+              <% content_for :title, "New board" %>
+              <div class="md:w-2/3 w-full flex flex-col gap-4">
+                <h1 class="font-bold text-4xl">Nowa tablica</h1>
+                <%= render "boards/form", board: Board.new %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>

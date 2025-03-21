@@ -2,12 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   authenticate :user do
-    resources :boards do
+    resources :boards, except: [ :new ] do
       resources :lists, only: [ :create, :update, :destroy ] do
-        resources :cards, only: [ :create, :edit, :update ]
+        resources :cards, only: [ :create, :edit, :update, :destroy ]
       end
     end
-    resources :cards
   end
 
   root "page#index"
