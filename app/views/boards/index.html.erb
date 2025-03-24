@@ -1,22 +1,20 @@
 <% content_for :title, "Boards" %>
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+  <%= render "shared/notice" if notice.present? %>
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Tablice</h1>
   </div>
-  <div id="boards" class="min-w-full grid grid-cols-1 gap-6 mt-6">
-    <% if @boards.any? %>
+  <% if @boards.any? %>
+    <div id="boards" class="min-w-full grid grid-cols-3 gap-6 mt-6">
       <% @boards.each do |board| %>
-        <div>
-          <%= link_to board do  %>
-            <%= render board %>
-          <% end %>
-        </div>
+        <%= render "boards/board_card", board: board %>
       <% end %>
-    <% else %>
-      <p class="text-center my-10">Nie znaleziono tablic.</p>
-    <% end %>
-  </div>
+      <%= render "boards/create_board_card" %>
+    </div>
+  <% else %>
+    <div class="mt-6">
+      <%= render "boards/empty_state" %>
+    </div>
+  <% end %>
 </div>
+<%= render "boards/new_board_modal" %>

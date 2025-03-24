@@ -1,0 +1,25 @@
+<div id="<%= dom_id board %>" class="relative">
+  <%= link_to board, class: "block" do %>
+    <div class="flex flex-col items-center justify-center gap-4 border bg-neutral-900 border-neutral-500 shadow-md rounded-md p-8 h-[200px]">
+      <p class="se">
+        <%= board.title %>
+      </p>
+    </div>
+  <% end %>
+  <span class="text-neutral-500 absolute top-4 left-4">
+    <div class="inline-grid *:[grid-area:1/1]">
+      <div class="status status-success animate-ping"></div>
+      <div class="status status-success"></div>
+    </div>
+    Tablica
+  </span>
+  <div class="absolute top-4 right-4 translate dropdown dropdown-start">
+    <button class="flex items-center justify-center ml-auto rounded-full p-1 bg-neutral-600 hover:bg-neutral-500 transition-all">
+      <%= lucide_icon("ellipsis", class: "w-4") %>
+    </button>
+    <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm">
+      <li><%= link_to "Edytuj", edit_board_path(board) %></li>
+      <li><%= button_to "Usuń", board, method: :delete, data: { turbo_confirm: "Are you sure?" } %></li>
+    </ul>
+  </div>
+</div>
