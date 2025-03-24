@@ -36,7 +36,7 @@
       <%= form_with model: [@board, list, Card.new] do |form| %>
         <div class="flex gap-2">
           <%= form.text_field :title, placeholder: "Nowa karta...", class: "input" %>
-          <%= form.submit "Stwórz kartę", class: "btn btn-primary" %>
+          <%= form.submit "Dodaj kartę", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
@@ -44,7 +44,7 @@
   <%= form_with model: [@board, List.new] do |form| %>
     <div class="flex gap-2">
       <%= form.text_field :title, placeholder: "Nowa lista", class: "input min-w-[300px]" %>
-      <%= form.submit "Stwórz listę", class: "btn btn-primary" %>
+      <%= form.submit "Dodaj listę", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
