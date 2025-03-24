@@ -4,9 +4,9 @@
       <%= lucide_icon("ellipsis", class: "w-4") %>
     </button>
     <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm">
-      <li> <%= link_to "Edytuj", edit_board_path(board), class: "btn" %>
+      <li class="min-w-[150px]"> <%= link_to "Edytuj", edit_board_path(board), class:"min-w-[150px] text-left hover:cursor-pointer" %>
       </li>
-      <li> <%= button_to "Usuń", board, method: :delete, class: "btn btn-error", data: { turbo_confirm: "Are you sure?" } %></li>
+      <li class="min-w-[150px]"> <%= button_to "Usuń", board, method: :delete, class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer", data: { turbo_confirm: "Are you sure?" } %></li>
     </ul>
   </div>
   <%= board.title %>

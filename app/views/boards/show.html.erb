@@ -6,8 +6,8 @@
         <button class="flex items-center justify-center ml-auto rounded-full w-[40px] bg-neutral-800 hover:bg-neutral-500 transition-all">
           <%= lucide_icon("ellipsis", class: "w-4") %>
         </button>
-        <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm">
-          <li><%= button_to "Usuń liste", board_list_path(@board, list), method: :delete %></li>
+        <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm min-w-[150px] border border-neutral-600">
+          <li class="min-w-[150px]"><%= button_to "Usuń liste", board_list_path(@board, list), method: :delete, class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %></li>
         </ul>
       </div>
       <h2 class="font-bold mb-2"><%= list.title %></h2>
@@ -17,8 +17,8 @@
           <%= link_to edit_board_list_card_path(@board, list, card) do %>
             <div class="bg-neutral-700 hover:bg-neutral-500 p-2 rounded shadow flex flex-col transition-all">
               <p class="font-semibold text-neutral-200"><%= card.title %></p>
-              <% if card.description && card.description.length > 0 %>
-                <p class="line-clamp-2 text-neutral-200 mt-3"><%= card.description %></p>
+              <% if card.description && card.description.body.to_s.present? %>
+                <div class="line-clamp-5 text-neutral-200 mt-3"><%= card.description %></div>
               <% end %>
             </div>
           <% end %>
@@ -26,8 +26,8 @@
             <button class="group-hover:flex hidden active:flex focus:flex items-center justify-center ml-auto rounded-full p-1 bg-neutral-600 hover:bg-neutral-500 transition-all">
               <%= lucide_icon("ellipsis-vertical", class: "w-4") %>
             </button>
-            <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm">
-              <li><%= button_to "Usuń karte", board_list_card_path(@board, list, card), method: :delete %></li>
+            <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm min-w-[150px] border border-neutral-600">
+              <li class="min-w-[150px]"><%= button_to "Usuń karte", board_list_card_path(@board, list, card), method: :delete, class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %></li>
             </ul>
           </div>
         </div>

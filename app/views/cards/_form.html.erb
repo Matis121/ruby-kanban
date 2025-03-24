@@ -1,4 +1,14 @@
-<div class="rounded w-[650px] h-[600px] border border-neutral-500 flex flex-col items-center shadow-md bg-neutral-800 p-4">
+<div class="relative rounded w-[850px] min-h-[400px] border border-neutral-500 flex flex-col items-center shadow-md bg-neutral-800 p-4">
+  <div class="absolute top-3 right-3 transale dropdown dropdown-start">
+    <button class="flex items-center justify-center ml-auto rounded-full w-[40px] bg-neutral-800 hover:bg-neutral-500 transition-all">
+      <%= lucide_icon("ellipsis", class: "w-4") %>
+    </button>
+    <ul class="dropdown-content menu rounded-box bg-base-100 shadow-sm border border-neutral-600">
+      <li class="min-w-[150px]">
+        <%= button_to "Usuń kartę", board_list_card_path(board, list, card), method: :delete, class: "text-red-400 min-w-[150px] hover:cursor-pointer text-left" %>
+      </li>
+    </ul>
+  </div>
   <%= form_with(model: [board, list, card], class: "contents") do |form| %>
     <% if card.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
@@ -12,17 +22,16 @@
     <% end %>
     <div class="flex flex-col gap-8 w-full">
       <div class="flex flex-col w-full gap-2">
-        <%= form.label :title %>
+        <%= form.label "Tytuł" %>
         <%= form.text_field :title, class: ["input w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:title].none?, "border-red-400 focus:outline-red-600": card.errors[:title].any?}] %>
       </div>
       <div class="flex flex-col w-full gap-2">
-        <%= form.label :description %>
-        <%= form.text_field :description, class: ["input w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:description].none?, "border-red-400 focus:outline-red-600": card.errors[:description].any?}] %>
+        <%= form.label "Opis" %>
+        <%= form.rich_text_area :description, class: "text-neutral-200", rows: "15" %>
       </div>
       <div class="inline w-full">
         <%= form.submit "Zapisz", class: "btn btn-primary" %>
       </div>
     </div>
   <% end %>
-  <%= button_to "Usuń", board_list_card_path(board, list, card), method: :delete, class: "btn btn-error" %>
 </div>
