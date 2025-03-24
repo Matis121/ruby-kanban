@@ -38,19 +38,19 @@ class CardsController < ApplicationController
   def set_board
     @board = Board.find(params[:board_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to boards_path, alert: "Board not found."
+    redirect_to boards_path, alert: "Nie znalezieno tablicy."
   end
 
   def set_list
     @list = @board.lists.find(params[:list_id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to board_path(@board), alert: "List not found."
+    redirect_to board_path(@board), alert: "Nie znaleziono listy."
   end
 
   def set_card
     @card = @list.cards.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to board_list_path(@board, @list), alert: "Card not found."
+    redirect_to board_list_path(@board, @list), alert: "Nie znalezino karty."
   end
 
   def card_params

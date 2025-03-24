@@ -29,6 +29,7 @@
               <%= lucide_icon("ellipsis-vertical", class: "w-4") %>
             </button>
             <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm">
+              <li><%= link_to "Edytuj", edit_board_path(board) %></li>
               <li><%= button_to "Usuń tablice", board, method: :delete %></li>
             </ul>
           </div>
