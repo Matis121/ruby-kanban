@@ -1,7 +1,7 @@
 <div class="fixed flex items-center justify-between w-full top-0 py-3 px-4 bg-neutral-800 text-white border-b border-b-neutral-500 shadow-md">
   <%= link_to "Kanban", user_signed_in? ? boards_path : root_path, class: "text-3xl font-bold cursor-pointer" %>
   <% if user_signed_in? %>
-    <div class="dropdown dropdown-end">
+    <div class="absolute top-4 right-4 translate dropdown dropdown-end">
       <div tabindex="0" role="button">
         <div class="avatar">
           <div class="ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2">
@@ -9,12 +9,8 @@
           </div>
         </div>
       </div>
-      <ul tabindex="0" class="dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-        <li class="w-full">
-          <div class="flex items-start justify-start w-full">
-            <%= button_to "Wyloguj się", destroy_user_session_path, method: :delete, class: "min-w-full" %>
-          </div>
-        </li>
+      <ul class="dropdown-content menu rounded-box bg-base-100 shadow-sm border border-neutral-600">
+        <li class="min-w-[150px]"><%= button_to "Wyloguj się", destroy_user_session_path, method: :delete, class:"min-w-[150px] text-left hover:cursor-pointer" %></li>
       </ul>
     </div>
   <% else %>
