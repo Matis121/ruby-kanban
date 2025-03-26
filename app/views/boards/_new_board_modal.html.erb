@@ -1,10 +1,27 @@
-<input type="checkbox" id="my_modal_7" class="modal-toggle" />
-<div class="modal" role="dialog">
+<%# Ensure modal_id is unique %>
+<% raise "modal_id is required" if modal_id.blank? %>
+<% icon ||= "" %>
+<% trigger_text ||= "" %>
+<% trigger_style_classes ||= "btn" %>
+<button class="<%= trigger_style_classes %> cursor-pointer" onclick="document.getElementById('<%= modal_id %>').showModal()">
+  <% if icon.present? %>
+    <%= lucide_icon(icon, class: "w-4") %>
+  <% end %>
+  <%= trigger_text %>
+</button>
+<dialog id="<%= modal_id %>" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
     <% content_for :title, "New board" %>
     <div class="md:w-2/3 w-full flex flex-col gap-4">
       <h1 class="font-bold text-4xl">Nowa tablica</h1>
       <%= render "boards/form", board: Board.new %>
     </div>
+    <div class="modal-action absolute -top-3 right-3">
+      <form method="dialog">
+        <button class="p-2 hover:cursor-pointer">
+          <%= lucide_icon("x", class: "w-4") %>
+        </button>
+      </form>
+    </div>
   </div>
-</div>
+</dialog>

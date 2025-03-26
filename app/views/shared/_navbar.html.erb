@@ -3,10 +3,8 @@
   <% if user_signed_in? %>
     <div class="absolute top-4 right-4 translate dropdown dropdown-end">
       <div tabindex="0" role="button">
-        <div class="avatar">
-          <div class="ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-          </div>
+        <div class="cursor-pointer ring-primary bg-neutral-950 ring-offset-base-100 w-8 h-8 rounded-full ring ring-offset-2 flex items-center justify-center relative">
+          <span class="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 uppercase font-semibold"><%= current_user.email.slice(0,1) %></span>
         </div>
       </div>
       <ul class="dropdown-content menu rounded-box bg-base-100 shadow-sm border border-neutral-600">
