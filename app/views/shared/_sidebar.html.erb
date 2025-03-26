@@ -2,12 +2,16 @@
   <div class="flex flex-col gap-3">
     <% if current_user.boards.any? %>
       <div class="flex justify-between items-center">
-        <span class="font-semibold text-neutral-300 text-sm">Dostępne tablice</span>
+        <span class="font-semibold text-neutral-300 text-sm">Dostępne tablice</span><span class="text-sm text-neutral-500 flex gap-0.5">
+          <div><%= current_user.boards.count %></div>
+          <div>/</div>
+          <div><%= BOARDS_LIMIT %></div>
+        </span>
         <%= render "boards/new_board_modal", modal_id: "modal_5", icon: "plus", trigger_style_classes: "text-lg text-netural-300 px-1.5 hover:bg-neutral-500 rounded-md transition-all" %>
       </div>
       <% current_user.boards.each do |board| %>
         <div class="relative group">
-          <%= link_to board, class: "flex gap-1 items-center py-2 px-2 bg-neutral-700 rounded-md text-neutral-200 hover:bg-neutral-500 shadow-md transition-all" do %>
+          <%= link_to board, class: "flex gap-1 items-center py-2 px-2 bg-neutral-700 rounded-md text-neutral-200 hover:bg-neutral-500 shadow-md transition-all overflow-hidden" do %>
             <span>📋</span><span><%= board.title %></span>
           <% end %>
           <div class="absolute top-1 right-1 transale dropdown dropdown-start">

@@ -12,6 +12,8 @@ class BoardsController < ApplicationController
   def show
     @board = Board.find(params[:id])
     @lists = @board.lists.order(:position)
+
+    @list_count = @board.lists.count
   end
 
 

@@ -1,4 +1,9 @@
 <div class="absolute top-3 right-3 dropdown dropdown-start">
-  <%= render  'lists/actions', board: board, list: list%>
+  <%= render 'lists/actions', board: board, list: list %>
 </div>
-<h2 class="font-bold mb-2"><%= list.title %></h2>
+<div>
+  <h2 class="font-bold mb-2"><%= list.title %></h2>
+  <div id="list-counter" class="text-neutral-500 text-sm">
+    Karty: <%= list.cards.count %> / <%= CARDS_IN_LIST %>
+  </div>
+</div>

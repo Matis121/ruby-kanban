@@ -1,6 +1,6 @@
 <div class="relative group">
   <%= link_to edit_board_list_card_path(board, list, card) do %>
-    <div class="bg-neutral-700 hover:bg-neutral-500 p-2 rounded shadow flex flex-col transition-all">
+    <div class="bg-neutral-700 hover:bg-neutral-500 p-2 rounded shadow flex flex-col transition-all overflow-hidden">
       <p class="font-semibold text-neutral-200"><%= card.title %></p>
       <% if card.description&.body.present? %>
         <div class="line-clamp-5 text-neutral-200 mt-3"><%= card.description %></div>

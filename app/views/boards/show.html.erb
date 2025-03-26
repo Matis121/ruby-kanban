@@ -1,5 +1,10 @@
-<h1 class="text-2xl font-bold mb-6"><%= @board.title %></h1>
-<div class="flex gap-4">
+<div class="flex justify-between mb-6 fixed boards-header-width z-40 py-6 -mt-6 backdrop-blur-sm">
+  <h1 class="text-2xl font-bold text-neutral-300"><%= @board.title %></h1>
+  <div id="list-counter" class="text-neutral-400 text-sm p-2 bg-neutral-800 rounded shadow">
+    Listy: <%= @list_count %> / <%= BOARD_LIST_LIMIT %>
+  </div>
+</div>
+<div class="flex gap-4 mt-16">
   <div 
     data-sortable-url-value="<%= update_position_board_list_path(@board, ':id') %>" 
     data-controller="sortable" 

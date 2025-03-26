@@ -8,3 +8,7 @@
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark, business;
 }
+
+.boards-header-width {
+  width: calc(100% - 280px);
+}
