@@ -1,0 +1,3 @@
+<% board.lists.order(:position).each do |list| %>
+  <%= render 'lists/list', board: board, list: list %>
+<% end %>

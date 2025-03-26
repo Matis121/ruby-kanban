@@ -10,6 +10,8 @@ class BoardsController < ApplicationController
 
   # GET /boards/1 or /boards/1.json
   def show
+    @board = Board.find(params[:id])
+    @lists = @board.lists.order(:position)
   end
 
 

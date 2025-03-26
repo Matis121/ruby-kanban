@@ -1,0 +1,6 @@
+<%= form_with model: [board, List.new] do |form| %>
+  <div class="flex gap-2">
+    <%= form.text_field :title, placeholder: "Nowa lista", class: "input min-w-[300px]" %>
+    <%= form.submit "Dodaj listę", class: "btn btn-primary" %>
+  </div>
+<% end %>

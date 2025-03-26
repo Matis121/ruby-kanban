@@ -30,13 +30,19 @@ class ListsController < ApplicationController
 
   def update_position
     @list = @board.lists.find(params[:id])
-    @list.insert_at(list_params[:position].to_i)
+    @list.insert_at(params[:position].to_i + 1)
+    head :ok
   end
+
 
   private
 
   def set_board
-    @board = Board.find(params[:board_id])
+    @board = Board.find_by(id: params[:board_id])
+  end
+
+  def set_list
+    @list = @board.lists.find(params[:id])
   end
 
   def list_params

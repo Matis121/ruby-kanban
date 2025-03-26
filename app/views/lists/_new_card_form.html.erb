@@ -1,0 +1,6 @@
+<%= form_with model: [board, list, Card.new] do |form| %>
+  <div class="flex gap-2">
+    <%= form.text_field :title, placeholder: "Nowa karta...", class: "input" %>
+    <%= form.submit "Dodaj kartę", class: "btn btn-primary" %>
+  </div>
+<% end %>
