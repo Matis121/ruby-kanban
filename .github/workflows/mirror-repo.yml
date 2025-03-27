@@ -32,13 +32,13 @@ jobs:
         SOURCE_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
         MIRROR_TOKEN: ${{ secrets.MIRROR_REPO_TOKEN }}
       run: |
-        # Clone the source repository using source repo token
-        git clone --mirror https://${SOURCE_TOKEN}@github.com/$SOURCE_REPO.git source-repo
+        git clone https://${SOURCE_TOKEN}@github.com/$SOURCE_REPO.git source-repo
         
-        # Change to the mirrored repository directory
         cd source-repo
         
-        # Push all branches and tags, excluding pull request refs
-        git push --mirror $MIRROR_REPO_URL \
-          +refs/heads/*:refs/heads/* \
-          +refs/tags/*:refs/tags/*
+        # Add mirror remote
+        git remote add mirror $MIRROR_REPO_URL
+        
+        # Push all branches and tags
+        git push mirror --all
+        git push mirror --tags
