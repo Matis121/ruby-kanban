@@ -38,5 +38,7 @@ jobs:
         # Change to the mirrored repository directory
         cd source-repo
         
-        # Push to the mirror repository
-        git push --mirror $MIRROR_REPO_URL
+        # Push all branches and tags, excluding pull request refs
+        git push --mirror $MIRROR_REPO_URL \
+          +refs/heads/*:refs/heads/* \
+          +refs/tags/*:refs/tags/*
