@@ -3,31 +3,37 @@ name: Mirror Repository
 on:
   push:
     branches:
-      - master
+      - main  # Adjust to your primary branch name
 
 jobs:
   mirror-repository:
     runs-on: ubuntu-latest
+    environment: mirror-repo  # Specify the environment name
     
     steps:
     - name: Checkout source repository
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-depth: 0  # Fetch all history for all branches and tags
     
     - name: Set up Git
+      env:
+        GIT_USER_NAME: ${{ vars.GIT_USER_NAME }}
+        GIT_USER_EMAIL: ${{ vars.GIT_USER_EMAIL }}
+        SOURCE_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
       run: |
-        git config --global user.name ${{ secrets.GH_CLONE_ACCOUNT_NAME }}
-        git config --global user.email ${{ secrets.GH_CLONE_ACCOUNT_EMAIL }}
+        git config --global user.name "$GIT_USER_NAME"
+        git config --global user.email "$GIT_USER_EMAIL"
     
     - name: Clone and Push to Mirror Repository
       env:
         SOURCE_REPO: ${{ github.repository }}
-        MIRROR_REPO_URL: ${{ secrets.MIRROR_REPO_URL }}
+        MIRROR_REPO_URL: ${{ vars.MIRROR_REPO_URL }}
+        SOURCE_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
         MIRROR_TOKEN: ${{ secrets.MIRROR_REPO_TOKEN }}
       run: |
-        # Clone the source repository
-        git clone --mirror https://github.com/$SOURCE_REPO.git source-repo
+        # Clone the source repository using source repo token
+        git clone --mirror https://${SOURCE_TOKEN}@github.com/$SOURCE_REPO.git source-repo
         
         # Change to the mirrored repository directory
         cd source-repo
