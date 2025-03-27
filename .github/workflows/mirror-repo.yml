@@ -3,18 +3,18 @@ name: Mirror Repository
 on:
   push:
     branches:
-      - main  # Adjust to your primary branch name
+      - master
 
 jobs:
   mirror-repository:
     runs-on: ubuntu-latest
-    environment: mirror-repo  # Specify the environment name
+    environment: mirror-repo
     
     steps:
     - name: Checkout source repository
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0  # Fetch all history for all branches and tags
+        fetch-depth: 0
     
     - name: Set up Git
       env:
