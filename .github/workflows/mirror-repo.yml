@@ -17,8 +17,8 @@ jobs:
     
     - name: Set up Git
       run: |
-        git config --global user.name 'GitHub Mirror Bot'
-        git config --global user.email 'mirror-bot@example.com'
+        git config --global user.name ${{ secrets.GH_CLONE_ACCOUNT_NAME }}
+        git config --global user.email ${{ secrets.GH_CLONE_ACCOUNT_EMAIL }}
     
     - name: Clone and Push to Mirror Repository
       env:
