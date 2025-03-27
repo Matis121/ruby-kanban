@@ -1,5 +1,5 @@
 <div class="fixed flex items-center justify-between w-full top-0 py-3 px-4 bg-neutral-800 text-white border-b border-b-neutral-500 shadow-md z-50">
-  <%= link_to "Kanban", user_signed_in? ? boards_path : root_path, class: "text-3xl font-bold cursor-pointer" %>
+  <%= link_to "Kanbanly", user_signed_in? ? boards_path : root_path, class: "text-3xl font-bold cursor-pointer" %>
   <% if user_signed_in? %>
     <div class="absolute top-4 right-4 translate dropdown dropdown-end">
       <div tabindex="0" role="button">
