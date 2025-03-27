@@ -12,6 +12,8 @@
 # The ideal number of threads per worker depends both on how much time the
 # application spends waiting for IO operations and on how much you wish to
 # prioritize throughput over latency.
+workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+#
 #
 # As a rule of thumb, increasing the number of threads will increase how much
 # traffic a given process can handle (throughput), but due to CRuby's
