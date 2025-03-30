@@ -34,4 +34,12 @@
       </div>
     </div>
   <% end %>
+  <div class="w-full mt-12">
+    <%= render "comments/form", board: board, list: list, card: card  %>
+    <ul class="flex flex-col gap-3 mt-4" id="comments">
+      <% @card.comments.order(created_at: :desc).each do |comment| %>
+        <%= render "comments/comment", comment: comment %>
+      <% end %>
+    </ul>
+  </div>
 </div>

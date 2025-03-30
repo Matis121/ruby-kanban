@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "new_comment" do %>
+  <%= render partial: "comments/form", locals: { board: @board, list: @list, card: @card, comment: @comment } %>
+<% end %>

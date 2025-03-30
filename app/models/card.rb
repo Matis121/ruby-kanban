@@ -2,6 +2,7 @@ class Card < ApplicationRecord
   belongs_to :list
   validates :title, presence: true, length: { maximum: 30 }
   has_rich_text :description
+  has_many :comments, dependent: :destroy
 
   validate :cards_in_list_limit
 

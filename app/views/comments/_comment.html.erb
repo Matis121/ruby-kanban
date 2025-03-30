@@ -1,0 +1,13 @@
+<li class="w-full flex flex-col gap-1" id="comment_<%= comment.id %>">
+  <div class="flex items-center gap-3">
+    <h5 class="font-semibold"><%= comment.user.nil? ? "Anonymous" : comment.user.email %></h5>
+    <span class="text-xs text-neutral-400"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+  </div>
+  <div class="p-4 border border-neutral-600 rounded bg-neutral-900" id="comment-content-<%= comment.id %>">
+    <%= comment.content %>
+  </div>
+  <div class="flex gap-4">
+    <%= button_to "Usuń", board_list_card_comment_path(@board, @list, @card, comment), method: :delete,
+        class: "text-red-400 text-left hover:cursor-pointer" %>
+  </div>
+</li>
