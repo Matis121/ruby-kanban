@@ -30,6 +30,7 @@ class BoardsController < ApplicationController
         format.html { redirect_to @board, notice: "Tablica została utworzona." }
         format.json { render :show, status: :created, location: @board }
       else
+        format.turbo_stream { render partial: "boards/form", formats: [ :html ], locals: { board: @board }, status: :unprocessable_entity }
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @board.errors, status: :unprocessable_entity }
       end
