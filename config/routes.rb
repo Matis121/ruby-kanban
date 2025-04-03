@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   authenticate :user do
     resources :boards, except: [ :new ] do
+      resources :memberships, controller: "board_memberships", only: [ :index, :create, :destroy ]
       resources :lists, only: [ :create, :update, :destroy ] do
         patch :update_position, on: :member
         resources :cards, only: [ :create, :edit, :update, :destroy ] do

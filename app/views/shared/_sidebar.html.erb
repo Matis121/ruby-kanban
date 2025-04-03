@@ -1,15 +1,15 @@
 <div class="bg-neutral-800 text-white py-8 px-4 w-[250px] border-r border-r-neutral-500 shadow-md flex flex-col gap-4">
   <div class="flex flex-col gap-3">
-    <% if current_user.boards.any? %>
+    <% if current_user.accessible_boards.any? %>
       <div class="flex justify-between items-center">
         <span class="font-semibold text-neutral-300 text-sm">Dostępne tablice</span><span class="text-sm text-neutral-500 flex gap-0.5">
-          <div><%= current_user.boards.count %></div>
+          <div><%= current_user.accessible_boards.count %></div>
           <div>/</div>
           <div><%= BOARDS_LIMIT %></div>
         </span>
         <%= render "boards/new_board_modal", modal_id: "modal_5", icon: "plus", trigger_style_classes: "text-lg text-netural-300 px-1.5 hover:bg-neutral-500 rounded-md transition-all" %>
       </div>
-      <% current_user.boards.each do |board| %>
+      <% current_user.accessible_boards.each do |board| %>
         <div class="relative group">
           <%= link_to board, class: "flex gap-1 items-center py-2 px-2 bg-neutral-700 rounded-md text-neutral-200 hover:bg-neutral-500 shadow-md transition-all overflow-hidden" do %>
             <span>📋</span><span><%= board.title %></span>
@@ -20,7 +20,18 @@
             </button>
             <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm min-w-[150px] border border-neutral-600">
               <li class="min-w-[150px]"><%= link_to "Edytuj", edit_board_path(board), class:"min-w-[150px] text-left hover:cursor-pointer" %></li>
-              <li class="min-w-[150px]"><%= button_to "Usuń tablice", board, method: :delete, class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %></li>
+              <li class="min-w-[150px]"><%= link_to "Członkowie", board_memberships_path(board), class:"min-w-[150px] text-left hover:cursor-pointer" %></li>
+              <% if board.user == current_user || board.admin?(current_user) %>
+                <li class="min-w-[150px]"><%= button_to "Usuń tablice", board, method: :delete, class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %></li>
+              <% elsif board_membership = BoardMembership.find_by(user: current_user, board: board) %>
+                <li class="min-w-[150px]">
+                  <%= button_to "Opuść tablice", 
+                  board_membership_path(board, board_membership), 
+                      method: :delete, 
+                      data: { turbo_confirm: "Czy na pewno chcesz usunąć dostęp do tablicy?" },
+                  class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>

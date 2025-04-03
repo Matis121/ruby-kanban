@@ -1,11 +1,12 @@
 class BoardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_board, only: [ :show, :edit, :update, :destroy ]
-  before_action :authorize_board_access, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_board_access!, only: [ :show ]
+  before_action :authorize_board_owner!, only: [ :edit, :update, :destroy ]
 
   # GET /boards or /boards.json
   def index
-    @boards = current_user.boards
+    @boards = current_user.accessible_boards
   end
 
   # GET /boards/1 or /boards/1.json
@@ -23,7 +24,7 @@ class BoardsController < ApplicationController
 
   # POST /boards or /boards.json
   def create
-    @board = Board.new(board_params)
+    @board = current_user.boards.build(board_params)
 
     respond_to do |format|
       if @board.save
@@ -62,16 +63,22 @@ class BoardsController < ApplicationController
 
   private
     def set_board
-      @board = Board.find(params.expect(:id))
+      @board = Board.find(params[:id])
     end
 
     def board_params
-      params.expect(board: [ :title, :user_id ])
+      params.require(:board).permit(:title)
     end
 
-    def authorize_board_access
+    def authorize_board_access!
+      unless @board.user == current_user || @board.members.include?(current_user)
+        redirect_to boards_path
+      end
+    end
+
+    def authorize_board_owner!
       unless @board.user == current_user
-        redirect_to boards_path, alert: "Nie masz uprawnień dostępu do tej tablicy!"
+        redirect_to boards_path
       end
     end
 end

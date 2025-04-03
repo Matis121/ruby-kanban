@@ -19,7 +19,18 @@
     </button>
     <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm min-w-[150px] border border-neutral-600">
       <li class="min-w-[150px]"><%= link_to "Edytuj", edit_board_path(board), class:"min-w-[150px] text-left hover:cursor-pointer" %></li>
-      <li class="min-w-[150px]"><%= button_to "Usuń tablicę", board, method: :delete, data: { turbo_confirm: "Are you sure?" }, class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %></li>
+      <li class="min-w-[150px]"><%= link_to "Członkowie", board_memberships_path(board), class:"min-w-[150px] text-left hover:cursor-pointer" %></li>
+      <% if board.user == current_user || board.admin?(current_user) %>
+        <li class="min-w-[150px]"><%= button_to "Usuń tablice", board, method: :delete, class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %></li>
+      <% elsif board_membership = BoardMembership.find_by(user: current_user, board: board) %>
+        <li class="min-w-[150px]">
+          <%= button_to "Opuść tablice", 
+                  board_membership_path(board, board_membership), 
+                      method: :delete, 
+                      data: { turbo_confirm: "Czy na pewno chcesz usunąć dostęp do tablicy?" },
+                  class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </div>
