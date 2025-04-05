@@ -6,15 +6,15 @@
       <%= form_with url: board_memberships_path(@board), method: :post do |f| %>
         <div class="flex flex-col gap-8">
           <div class="flex flex-col gap-2">
-            <%= f.label :email, "User Email", class: "form-label" %>
+            <%= f.label :email, "Adres E-mail", class: "form-label" %>
             <%= f.email_field :email, class: "input", autofocus: true, required: true %>
           </div>
           <div class="flex flex-col gap-2">
-            <%= f.label :role, "Role", class: "form-label" %>
-            <%= f.select :role, options_for_select([["Member", "member"], ["Admin", "admin"]]), {}, class: "select" %>
+            <%= f.label :role, "Rola", class: "form-label" %>
+            <%= f.select :role, options_for_select([["Członek", "member"], ["Admin", "admin"]]), {}, class: "select" %>
           </div>
           <div class="col-md-2 d-flex align-items-end">
-            <%= f.submit "Add User", class: "btn btn-primary" %>
+            <%= f.submit "Dodaj użytkownika", class: "btn btn-primary" %>
           </div>
         </div>
       <% end %>
@@ -34,8 +34,8 @@
         <tbody>
           <!-- Show board owner first -->
           <tr>
-            <td><%= @board.user.email %> (Owner)</td>
-            <td>Owner</td>
+            <td><%= @board.user.email %></td>
+            <td>Właściciel</td>
             <td>-</td>
           </tr>
           <% @memberships.each do |membership| %>
