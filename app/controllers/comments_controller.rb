@@ -21,10 +21,12 @@ class CommentsController < ApplicationController
     @comment = @card.comments.find(params[:id])
     @comment.destroy
 
-    respond_to do |format|
-      format.html { redirect_to board_list_card_path(@board, @list, @card), notice: "Komentarz usunięty." }
-      format.turbo_stream { render :destroy, locals: { board: @board, list: @list, card: @card, comment: @comment } }
-      format.json { head :no_content }
+    if @comment.user == current_user
+      respond_to do |format|
+        format.html { redirect_to board_list_card_path(@board, @list, @card), notice: "Komentarz usunięty." }
+        format.turbo_stream { render :destroy, locals: { board: @board, list: @list, card: @card, comment: @comment } }
+        format.json { head :no_content }
+      end
     end
   end
 

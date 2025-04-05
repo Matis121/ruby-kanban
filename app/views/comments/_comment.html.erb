@@ -6,8 +6,10 @@
   <div class="p-4 border border-neutral-600 rounded bg-neutral-900" id="comment-content-<%= comment.id %>">
     <%= comment.content %>
   </div>
-  <div class="flex gap-4">
-    <%= button_to "Usuń", board_list_card_comment_path(@board, @list, @card, comment), method: :delete,
+  <% if comment.user == current_user %>
+    <div class="flex gap-4">
+      <%= button_to "Usuń", board_list_card_comment_path(@board, @list, @card, comment), method: :delete,
         class: "text-red-400 text-left hover:cursor-pointer" %>
-  </div>
+    </div>
+  <% end %>
 </li>
