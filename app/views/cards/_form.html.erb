@@ -5,7 +5,7 @@
     </button>
     <ul class="dropdown-content menu rounded-box bg-base-100 shadow-sm border border-neutral-600">
       <li class="min-w-[150px]">
-        <%= button_to "Usuń kartę", board_list_card_path(board, list, card), method: :delete, class: "text-red-400 min-w-[150px] hover:cursor-pointer text-left" %>
+        <%= button_to "Usuń kartę", board_list_card_path(board, list, card), method: :delete, data: { turbo_confirm: "Czy na pewno chcesz usunąć kartę?" }, class: "text-red-400 min-w-[150px] hover:cursor-pointer text-left" %>
       </li>
     </ul>
   </div>
@@ -35,7 +35,7 @@
     </div>
   <% end %>
   <div class="w-full mt-12">
-    <%= render "comments/form", board: board, list: list, card: card  %>
+    <%= render "comments/form", board: board, list: list, card: card, comment: Comment.new  %>
     <ul class="flex flex-col gap-3 mt-4" id="comments">
       <% @card.comments.order(created_at: :desc).each do |comment| %>
         <%= render "comments/comment", comment: comment %>

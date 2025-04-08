@@ -4,7 +4,7 @@
   </button>
   <ul class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm min-w-[150px] border border-neutral-600">
     <li class="min-w-[150px]">
-      <%= button_to "Usuń karte", board_list_card_path(board, list, card), method: :delete, 
+      <%= button_to "Usuń kartę", board_list_card_path(board, list, card), method: :delete,  data: { turbo_confirm: "Czy na pewno chcesz usunąć kartę?" },
           class: "text-red-400 min-w-[150px] text-left hover:cursor-pointer" %>
     </li>
   </ul>

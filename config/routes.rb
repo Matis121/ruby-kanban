@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       resources :lists, only: [ :create, :update, :destroy ] do
         patch :update_position, on: :member
         resources :cards, only: [ :create, :edit, :update, :destroy ] do
-          resources :comments, only: [ :create, :destroy ]
+          resources :comments do
+            get :cancel, on: :member
+          end
         end
       end
     end

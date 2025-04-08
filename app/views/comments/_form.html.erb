@@ -1,10 +1,13 @@
  <%= turbo_frame_tag id="new_comment" do %>
-  <%= form_with model: [board, list, card, Comment.new], class: "flex flex-col gap-4" do |form| %>
+  <%= form_with model: [board, list, card, comment], class: "flex flex-col gap-4 w-full" do |form| %>
     <div>
-      <%= form.text_area :content, placeholder: "Napisz komentarz...", class: "input w-full" %>
+      <%= form.text_area :content, placeholder: "Napisz komentarz...", autofocus: comment.persisted?, class: "input w-full" %>
     </div>
     <div>
-      <%= form.submit "Dodaj", class: "btn" %>
+      <%= form.submit comment.persisted? ? "Zapisz" : "Dodaj", class: comment.persisted? ? "btn btn-primary" : "btn" %>
+      <% if comment.persisted? %>
+        <%= link_to "Odrzuć zmiany", cancel_board_list_card_comment_path(@board, @list, @card, comment), data: { turbo_stream: true }, class: "btn"%>
+      <% end %>
     </div>
   <% end %>
 <% end %>

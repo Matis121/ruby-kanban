@@ -1,15 +1,19 @@
-<li class="w-full flex flex-col gap-1" id="comment_<%= comment.id %>">
-  <div class="flex items-center gap-3">
-    <h5 class="font-semibold"><%= comment.user.nil? ? "Anonymous" : comment.user.email %></h5>
-    <span class="text-xs text-neutral-400"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></span>
-  </div>
-  <div class="p-4 border border-neutral-600 rounded bg-neutral-900" id="comment-content-<%= comment.id %>">
-    <%= comment.content %>
-  </div>
-  <% if comment.user == current_user %>
-    <div class="flex gap-4">
-      <%= button_to "Usuń", board_list_card_comment_path(@board, @list, @card, comment), method: :delete,
-        class: "text-red-400 text-left hover:cursor-pointer" %>
+<%= turbo_frame_tag dom_id(comment) do %>
+  <li class="w-full flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <h5 class="font-semibold"><%= comment.user.nil? ? "Anonymous" : comment.user.email %></h5>
+      <span class="text-xs text-neutral-400"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></span>
     </div>
-  <% end %>
-</li>
+    <div class="p-4 border border-neutral-600 rounded bg-neutral-900" id="comment-content-<%= comment.id %>">
+      <%= comment.content %>
+    </div>
+    <% if comment.user == current_user %>
+      <div class="flex items-center border-g divide-x divide-neutral-600">
+        <%= link_to "Edytuj", edit_board_list_card_comment_path(@board, @list, @card, comment),
+        class: "text-left hover:cursor-pointer text-xs px-2" %>
+        <%= button_to "Usuń", board_list_card_comment_path(@board, @list, @card, comment), method: :delete, data: {turbo_confirm: "Czy na pewno chcesz usunąć komentarz?"},
+        class: "text-red-400 text-left hover:cursor-pointer text-xs px-2" %>
+      </div>
+    <% end %>
+  </li>
+<% end %>

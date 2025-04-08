@@ -22,7 +22,7 @@
               <li class="min-w-[150px]"><%= link_to "Edytuj", edit_board_path(board), class:"min-w-[150px] text-left hover:cursor-pointer" %></li>
               <li class="min-w-[150px]"><%= link_to "Członkowie", board_memberships_path(board), class:"min-w-[150px] text-left hover:cursor-pointer" %></li>
               <% if board.user == current_user || board.admin?(current_user) %>
-                <li class="min-w-[150px]"><%= button_to "Usuń tablice", board, method: :delete, class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %></li>
+                <li class="min-w-[150px]"><%= button_to "Usuń tablice", board, method: :delete, data: { turbo_confirm: "Czy na pewno chcesz usunąć tablicę?" }, class:"text-red-400 min-w-[150px] text-left hover:cursor-pointer" %></li>
               <% elsif board_membership = BoardMembership.find_by(user: current_user, board: board) %>
                 <li class="min-w-[150px]">
                   <%= button_to "Opuść tablice", 
