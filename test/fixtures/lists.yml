@@ -1,11 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  title: MyString
+list1:
+  id: 1
+  title: To Do
   position: 1
-  board: one
+  board_id: 1 # Belongs to board1
 
-two:
-  title: MyString
-  position: 1
-  board: two
+list2:
+  id: 2
+  title: In Progress
+  position: 2
+  board_id: 1 # Belongs to board1

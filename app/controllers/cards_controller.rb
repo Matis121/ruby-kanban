@@ -10,7 +10,7 @@ class CardsController < ApplicationController
     if @card.save
       redirect_to board_path(@board), notice: "Karta została dodana!"
     else
-      redirect_to board_path(@board), alert: "Nie udało się dodać karty."
+      redirect_to board_path(@board), status: :unprocessable_entity
     end
   end
 

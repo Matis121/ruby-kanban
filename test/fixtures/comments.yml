@@ -1,11 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+comment1:
+  id: 1
+  content: This is important for our test coverage
+  card_id: 1 # References card1
+  user_id: 1 # References user1
 
-one:
-  content: MyText
-  card: one
-  user: one
-
-two:
-  content: MyText
-  card: two
-  user: two
+comment2:
+  id: 2
+  content: I'll help with this task
+  card_id: 1 # References card1
+  user_id: 2 # References user2
