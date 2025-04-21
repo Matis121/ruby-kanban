@@ -28,13 +28,14 @@ class CommentsController < ApplicationController
   def update
     @comment = @card.comments.find(params[:id])
 
-    respond_to do |format|
-      if turbo_frame_request?
-        if @comment.update(comment_params)
-          format.turbo_stream
-        else
-          format.turbo_stream { render :update, status: :unprocessable_entity }
-        end
+    if @comment.update(comment_params)
+      respond_to do |format|
+        format.turbo_stream
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream { render :update, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
