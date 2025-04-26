@@ -20,7 +20,6 @@ export default class extends Controller {
     const { newIndex, item } = event;
     const id = item.dataset["sortableId"];
     const url = this.urlValue.replace(":id", id);
-    console.log(url);
 
     patch(url, {
       body: JSON.stringify({ position: newIndex }),

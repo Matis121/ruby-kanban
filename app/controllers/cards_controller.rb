@@ -2,7 +2,7 @@ class CardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_board
   before_action :set_list
-  before_action :set_card, only: [ :edit, :update, :destroy ]
+  before_action :set_card, only: [ :edit, :update, :destroy, :update_position ]
 
   def create
     @card = @list.cards.build(card_params)
@@ -31,6 +31,11 @@ class CardsController < ApplicationController
     else
       redirect_to board_path(@board), alert: "Nie udało się usunąć karty."
     end
+  end
+
+  def update_position
+    @card.update(list_id: params[:new_list_id], position: params[:position].to_i + 1)
+    head :ok
   end
 
   private

@@ -1,4 +1,4 @@
-<div class="relative group">
+<div class="relative group" data-card-sortable-id="<%= card.id %>">
   <%= link_to edit_board_list_card_path(board, list, card) do %>
     <div class="bg-neutral-700 hover:bg-neutral-500 p-2 rounded shadow flex flex-col transition-all overflow-hidden">
       <p class="font-semibold text-neutral-200"><%= card.title %></p>
