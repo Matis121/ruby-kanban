@@ -13,10 +13,6 @@ export default class extends Controller {
     });
   }
 
-  disconnect() {
-    this.cardSortable.destroy();
-  }
-
   onEnd(event) {
     const { newIndex, item, to } = event;
     const id = item.dataset["cardSortableId"];
