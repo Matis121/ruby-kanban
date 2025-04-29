@@ -3,6 +3,7 @@ class CardsController < ApplicationController
   before_action :set_board
   before_action :set_list
   before_action :set_card, only: [ :edit, :update, :destroy, :update_position ]
+  before_action :authorize_board_access!
 
   def create
     @card = @list.cards.build(card_params)
@@ -15,11 +16,16 @@ class CardsController < ApplicationController
   end
 
   def edit
+    unless turbo_frame_request?
+      redirect_to board_path(@board)
+    end
   end
 
   def update
     if @card.update(card_params)
-      redirect_to board_path(@board), notice: "Karta została zaktualizowana!"
+      respond_to do |format|
+        format.turbo_stream
+      end
     else
       render :edit, status: :unprocessable_entity
     end

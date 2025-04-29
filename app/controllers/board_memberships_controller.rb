@@ -44,10 +44,4 @@ class BoardMembershipsController < ApplicationController
       redirect_to boards_path
     end
   end
-
-  def authorize_board_access!
-    unless @board.user == current_user || @board.members.include?(current_user)
-      redirect_to boards_path
-    end
-  end
 end
