@@ -1,0 +1,16 @@
+<% if message %>
+  <div 
+  class="toast transition transform duration-100"   
+  data-controller="notifications"
+  data-notification-delay-value="2000"
+  class="transition transform duration-1000 hidden"
+  data-transition-enter-from="opacity-0 translate-x-6"
+  data-transition-enter-to="opacity-100 translate-x-0"
+  data-transition-leave-from="opacity-100 translate-x-0"
+  data-transition-leave-to="opacity-0 translate-x-6">
+    <div class="alert alert-info">
+      <span class="text-white"><%= message %></span>
+      <button class="cursor-pointer text-white hover:text-neutral-300 transition-all" data-action="notifications#hide"><%= lucide_icon("x", class: "w-4") %></button>
+    </div>
+  </div>
+<% end %>

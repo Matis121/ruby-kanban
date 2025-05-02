@@ -17,6 +17,7 @@
   </head>
   <body>
     <%= turbo_frame_tag "modal" %>
+    <%= render partial: "shared/notifications", locals: {message: flash[:notice]} %>
     <%= render "shared/navbar" %>
     <main class="flex w-full pt-14 h-screen">
       <% if current_user %>
