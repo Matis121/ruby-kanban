@@ -81,8 +81,8 @@ production:
   primary: &primary_production
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
-    database: ruby_kanban_production
-    username: ruby_kanban
+    database: ruby_kanban_pxv3
+    username: ruby_kanban_pxv3_user
     password: <%= ENV["DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
